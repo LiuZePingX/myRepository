@@ -6,13 +6,13 @@ import java.util.List;
  * @ClassName:
  * @Description: 排序算法
  * @author: com.longshare.liuzp
- * @date:   2019/7/15 14:42
- *
+ * @date: 2019/7/15 14:42
  */
 public interface SortService {
 
     /**
      * 冒泡排序
+     *
      * @param list
      * @return
      */

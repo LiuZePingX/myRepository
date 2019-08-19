@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 public class SearchServiceImpl implements SearchService {
     @Override
     public Integer binarySearch(double[] sortArr , double target , Integer start , Integer end) {
-        return BinarySearch.binarySearch(sortArr,target,start,end);
+        return BinarySearch.binarySearch(sortArr , target , start , end);
     }
 }

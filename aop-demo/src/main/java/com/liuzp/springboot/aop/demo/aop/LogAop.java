@@ -38,7 +38,8 @@ public class LogAop {
 
     }
 
-    @Before("adminTest()")
+    //@Before("adminTest()")
+    @Before(value = "execution(* com.liuzp.* (..))") // 通配符，无侵入性
     public void checkLog(JoinPoint point) {
         Object[] o = point.getArgs();
         String s = JSONObject.toJSONString(o);
