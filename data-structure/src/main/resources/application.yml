@@ -1,0 +1,8 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /data-struct
+
+spring:
+  application:
+    name: data-struct
