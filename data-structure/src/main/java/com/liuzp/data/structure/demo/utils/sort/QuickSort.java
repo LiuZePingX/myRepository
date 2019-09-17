@@ -19,62 +19,65 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class QuickSort {
 
-    public static void quickSort(Double[] targetArr,int startIndex,int endIndex) {
+    public void quickSort(Double[] targetArr, int startIndex, int endIndex) {
         log.debug("进入快速排序", targetArr);
         // 当数组长度为0或者1时结束
         int length = endIndex - startIndex;
-        if(length <= 0) {
+        if(length > 0) {
+            int leftPoint = startIndex; // 左指针
+            int rightPoint = endIndex-1; // 右指针
+            double axis = targetArr[endIndex];; // 轴
+            boolean leftFlag = true; // 左指针移动标志
+            boolean rightFlag = true; // 右指针移动标志
+            boolean isContinue = true;
+            // 左指针
+            while (isContinue) {
+                while (leftFlag) {
+                    if(targetArr[leftPoint]<axis) {
+                        leftPoint++;
+                    }else {
+                        leftFlag = false;
+                    }
+                }
+                // 右指针
+                while (rightFlag) {
+                    if(targetArr[rightPoint]>axis) {
+                        rightPoint--;
+                    }else {
+                        rightFlag = false;
+                    }
+                }
+                // 判断左右指针位置是否重合，或左指针是否在右指针右边
+                if(leftPoint >= rightPoint) {
+                    // 将轴与左指针交换位置
+                    double temp = targetArr[leftPoint];
+                    targetArr[leftPoint] = axis;
+                    targetArr[endIndex] = temp;
+                    isContinue = false;
+                }else {
+                    // 交换左右指针值
+                    double temp  = targetArr[leftPoint];
+                    targetArr[leftPoint] = targetArr[rightPoint];
+                    targetArr[rightPoint] = temp;
+                    leftFlag = true;
+                    rightFlag = true;
+                }
+            }
+
+            //quickSort(targetArr, 0,leftPoint-1);
+            quickSort(targetArr,leftPoint+1,targetArr.length-1);
+
+        }else {
+            System.out.println("退出排序");
             return ;
         }
-
-        int leftPoint = startIndex; // 左指针
-        int rightPoint = endIndex-1; // 右指针
-        double axis = targetArr[endIndex];; // 轴
-        boolean leftFlag = true; // 左指针移动标志
-        boolean rightFlag = true; // 右指针移动标志
-        boolean isContinue = true;
-        // 左指针
-        while (isContinue) {
-            while (leftFlag) {
-                if(targetArr[leftPoint]<axis) {
-                    leftPoint++;
-                }else {
-                    leftFlag = false;
-                }
-            }
-            // 右指针
-            while (rightFlag) {
-                if(targetArr[rightPoint]>axis) {
-                    rightPoint--;
-                }else {
-                    rightFlag = false;
-                }
-            }
-            // 判断左右指针位置是否重合，或左指针是否在右指针右边
-            if(leftPoint >= rightPoint) {
-                // 将轴与左指针交换位置
-                double temp = targetArr[leftPoint];
-                targetArr[leftPoint] = axis;
-                targetArr[endIndex] = temp;
-                isContinue = false;
-            }else {
-                // 交换左右指针值
-                double temp  = targetArr[leftPoint];
-                targetArr[leftPoint] = targetArr[rightPoint];
-                targetArr[rightPoint] = temp;
-                leftFlag = true;
-                rightFlag = true;
-            }
-        }
-
-        quickSort(targetArr, 0,leftPoint-1);
-        quickSort(targetArr,leftPoint+1,targetArr.length-1);
     }
 
     public static void main(String[] args) {
+        QuickSort quickSort = new QuickSort();
         Double[] targetArr = {0.0,3.0,2.0,1.0,9.0,5.0,6.0};
         System.out.println("快速排序前："+ targetArr.toString());
-        QuickSort.quickSort(targetArr,0,targetArr.length-1);
+        quickSort.quickSort(targetArr,0,targetArr.length-1);
         System.out.println("快速排序后："+ targetArr.toString());
     }
 }
